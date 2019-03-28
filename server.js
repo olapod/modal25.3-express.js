@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -13,16 +15,15 @@ app.get('/getNote', function (req, res) {
     });
 });
 
-app.post('/updateNote/:note', function (req, res) {
-    
+app.post('/updateNote/:note', function(req, res) {
     fs.writeFile('./test.json', stringifyFile, function(err) {
         if (err) throw err;
-        stringifyFile = stringifyFile + req.params.note;
-        res.send(stringifyFile);
         console.log('file updated');
+        stringifyFile = req.params.note;
+        res.send(stringifyFile);
     });
     
 });
 
 
-app.listen(3000);
+var server = app.listen(3000);
